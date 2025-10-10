@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: UserService
+              uri: lb://UserService
+              predicates:
+                - Path=/user/**
+
+            - id: HotelService
+              uri: lb://HotelService
+              predicates:
+                - Path=/hotel/**
+
+            - id: RatingService
+              uri: lb://RatingService
+              predicates:
+                - Path=/rating/**
+server:
+  port: 1804
+#
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: "http://localhost:8761/eureka"
